@@ -7,6 +7,6 @@ namespace CarManager.Infrastructure.Requests
 		where T : class
 	{
 		[JsonIgnore]
-		public TimeSpan CacheExpiration { get; set; } = TimeSpan.FromMinutes(1);
+		public TimeSpan CacheExpiration { get; protected set; } = TimeSpan.FromMinutes(1);
 	}
 }
