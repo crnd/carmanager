@@ -19,6 +19,7 @@ namespace CarManager.API.Controllers
 		/// Get all cars.
 		/// </summary>
 		/// <param name="cancellationToken">Propagates notification that request should be cancelled.</param>
+		/// <response code="200">A list of cars was returned.</response>
 		[HttpGet]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		public async Task<ActionResult<IEnumerable<CarDto>>> GetCars(CancellationToken cancellationToken)
@@ -31,6 +32,7 @@ namespace CarManager.API.Controllers
 		/// </summary>
 		/// <param name="id">Id of the car to get.</param>
 		/// <param name="cancellationToken">Propagates notification that request should be cancelled.</param>
+		/// <response code="200">A car with <paramref name="id"/> was returned.</response>
 		/// <response code="404">A car was not found with the given <paramref name="id"/>.</response>
 		[HttpGet("{id}")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
@@ -45,6 +47,7 @@ namespace CarManager.API.Controllers
 		/// </summary>
 		/// <param name="command">Values to use for creating the car.</param>
 		/// <param name="cancellationToken">Propagates notification that request should be cancelled.</param>
+		/// <response code="201">The specified car was created.</response>
 		/// <response code="400">Request body was not valid.</response>
 		/// <response code="409">A car already exists with the given make, model and power.</response>
 		[HttpPost]
@@ -63,6 +66,7 @@ namespace CarManager.API.Controllers
 		/// <param name="id">Id of the car to update.</param>
 		/// <param name="command">Values to use for updating the car.</param>
 		/// <param name="cancellationToken">Propagates notification that request should be cancelled.</param>
+		/// <response code="200">The car with <paramref name="id"/> was updated.</response>
 		/// <response code="400">Request body was not valid.</response>
 		/// <response code="404">A car was not found with the given <paramref name="id"/>.</response>
 		/// <response code="409">A car already exists with the given make, model and power.</response>
@@ -82,6 +86,7 @@ namespace CarManager.API.Controllers
 		/// </summary>
 		/// <param name="id">ID of the car to delete.</param>
 		/// <param name="cancellationToken">Propagates notification that request should be cancelled.</param>
+		/// <response code="204">The car with <paramref name="id"/> has been deleted.</response>
 		[HttpDelete("{id}")]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		public async Task<ActionResult> DeleteCar(Guid id, CancellationToken cancellationToken)
