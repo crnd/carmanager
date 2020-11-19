@@ -9,10 +9,5 @@ namespace CarManager.Infrastructure.Exceptions
 			: base($"{entityType.Name} was not found with ID {id}.")
 		{
 		}
-
-		protected EntityNotFoundException(Type entityType, params (string, Guid)[] ids)
-			: base($"{entityType.Name} was not found with IDs {ids.Select(id => id.Item1 + ": " + id.Item2)}.")
-		{
-		}
 	}
 }
