@@ -1,4 +1,5 @@
 ﻿using CarManager.Persistence.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarManager.Persistence.Configurations
@@ -18,7 +19,8 @@ namespace CarManager.Persistence.Configurations
 				.IsRequired();
 
 			builder
-				.HasIndex(e => new { e.Make, e.Model, e.Power })
+				.HasIndex(e => new { e.Make, e.Model, e.Power, e.Deleted })
+				.HasFilter(null)
 				.IsUnique();
 		}
 	}
