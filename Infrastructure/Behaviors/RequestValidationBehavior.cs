@@ -10,6 +10,7 @@ namespace CarManager.Infrastructure.Behaviors
 {
 	public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
 		where TRequest : IRequest<TResponse>
+		where TResponse : notnull
 	{
 		private readonly IEnumerable<IValidator<TRequest>> validators;
 
