@@ -39,7 +39,7 @@ namespace CarManager.API
 			services.AddScoped<ICache, InMemoryCache>();
 
 			services
-				.AddDbContext<CarManagerContext>(o => o.UseSqlServer(configuration.GetConnectionString("Database")))
+				.AddDbContext<CarManagerContext>(o => o.UseInMemoryDatabase(nameof(CarManager)))
 				.AddMemoryCache()
 				.AddMediatR(new [] { applicationAssembly, infrastructureAssembly })
 				.AddAutoMapper(applicationAssembly)
