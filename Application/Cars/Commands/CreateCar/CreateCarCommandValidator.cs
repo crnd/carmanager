@@ -13,6 +13,7 @@ namespace CarManager.Application.Cars.Commands.CreateCar
 				.NotEmpty();
 
 			RuleFor(c => c.Power)
+				.NotEmpty()
 				.GreaterThan(0);
 		}
 	}
