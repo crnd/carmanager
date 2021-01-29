@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.IO;
 using System.Reflection;
@@ -24,6 +25,7 @@ namespace CarManager.API
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			var apiAssembly = typeof(Startup).Assembly;
 			var applicationAssembly = typeof(CarDto).Assembly;
 			var infrastructureAssembly = typeof(IQuery<>).Assembly;
 
@@ -40,14 +42,8 @@ namespace CarManager.API
 				{
 					o.SwaggerDoc(ApiVersion, new OpenApiInfo { Title = ApiTitle, Version = ApiVersion });
 					o.AddFluentValidationRules();
-
-					var apiXmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-					var apiXmlPath = Path.Combine(AppContext.BaseDirectory, apiXmlFile);
-					o.IncludeXmlComments(apiXmlPath, true);
-
-					var applicationXmlFile = $"{applicationAssembly.GetName().Name}.xml";
-					var applicationXmlPath = Path.Combine(AppContext.BaseDirectory, applicationXmlFile);
-					o.IncludeXmlComments(applicationXmlPath);
+					IncludeAssemblyComments(o, apiAssembly, true);
+					IncludeAssemblyComments(o, applicationAssembly, false);
 				})
 				.AddControllers(o => o.Filters.Add(typeof(CustomExceptionHandler)))
 				.AddFluentValidation(c => c.RegisterValidatorsFromAssembly(applicationAssembly))
@@ -61,6 +57,13 @@ namespace CarManager.API
 				.UseSwaggerUI(o => o.SwaggerEndpoint($"/swagger/{ApiVersion}/swagger.json", $"{ApiTitle} {ApiVersion}"))
 				.UseRouting()
 				.UseEndpoints(e => e.MapControllers());
+		}
+
+		private static void IncludeAssemblyComments(SwaggerGenOptions options, Assembly assembly, bool includeControllerComments)
+		{
+			var xmlFile = $"{assembly.GetName().Name}.xml";
+			var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+			options.IncludeXmlComments(xmlPath, includeControllerComments);
 		}
 	}
 }
