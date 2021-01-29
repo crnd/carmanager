@@ -8,7 +8,6 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
@@ -22,12 +21,6 @@ namespace CarManager.API
 	{
 		private const string ApiTitle = "CarManager";
 		private const string ApiVersion = "v1";
-		private readonly IConfiguration configuration;
-
-		public Startup(IConfiguration configuration)
-		{
-			this.configuration = configuration;
-		}
 
 		public void ConfigureServices(IServiceCollection services)
 		{
@@ -41,9 +34,10 @@ namespace CarManager.API
 			services
 				.AddDbContext<CarManagerContext>(o => o.UseInMemoryDatabase(nameof(CarManager)))
 				.AddMemoryCache()
-				.AddMediatR(new [] { applicationAssembly, infrastructureAssembly })
+				.AddMediatR(new[] { applicationAssembly, infrastructureAssembly })
 				.AddAutoMapper(applicationAssembly)
-				.AddSwaggerGen(o => {
+				.AddSwaggerGen(o =>
+				{
 					o.SwaggerDoc(ApiVersion, new OpenApiInfo { Title = ApiTitle, Version = ApiVersion });
 					o.AddFluentValidationRules();
 
