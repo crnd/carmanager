@@ -6,21 +6,8 @@ using CarManager.Persistence.Entities;
 
 namespace CarManager.Tests.Shared.Generators
 {
-	public class CarGenerator
+	public class CarGenerator : GenericGenerator<Car, CreateCarCommand, UpdateCarCommand, DeleteCarCommand>
 	{
-		private readonly Faker<Car> entity;
-		private readonly Faker<CreateCarCommand> createCommand;
-		private readonly Faker<UpdateCarCommand> updateCommand;
-		private readonly Faker<DeleteCarCommand> deleteCommand;
-
-		public Car Entity => entity.Generate();
-
-		public CreateCarCommand CreateCommand => createCommand.Generate();
-
-		public UpdateCarCommand UpdateCommand => updateCommand.Generate();
-
-		public DeleteCarCommand DeleteCommand => deleteCommand.Generate();
-
 		public CarGenerator()
 		{
 			entity = new Faker<Car>()
