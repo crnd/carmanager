@@ -7,6 +7,7 @@ namespace CarManager.API.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
+	[Consumes(MediaTypeNames.Application.Json)]
 	[Produces(MediaTypeNames.Application.Json)]
 	public abstract class ApiControllerBase : ControllerBase
 	{
