@@ -3,7 +3,7 @@ using CarManager.Persistence.Entities;
 
 namespace CarManager.Tests.Shared.Generators
 {
-	public abstract class GenericGenerator<TEntity, TCreateCommand, TUpdateCommand, TDeleteCommand>
+	public abstract class GenericGenerator<TEntity, TCreateCommand, TUpdateCommand, TDeleteCommand> : IEntityGenerator<TEntity>
 		where TEntity : class, IEntity
 		where TCreateCommand : class
 		where TUpdateCommand : class

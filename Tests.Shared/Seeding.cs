@@ -10,24 +10,26 @@ namespace CarManager.Tests.Shared
 
 		public static void Initialize(in CarManagerContext context)
 		{
-			Cars = GenerateCars(50);
+			Cars = GenerateEntities<Car, CarGenerator>(50);
 
 			context.Cars.AddRange(Cars);
 
 			context.SaveChanges();
 		}
 
-		private static Car[] GenerateCars(in int amount)
+		private static TEntity[] GenerateEntities<TEntity, TGenerator>(in int amount)
+			where TEntity : class, IEntity
+			where TGenerator : IEntityGenerator<TEntity>, new()
 		{
-			var carGenerator = new CarGenerator();
-			var cars = new Car[amount];
+			var generator = new TGenerator();
+			var entities = new TEntity[amount];
 
 			for (var i = 0; i < amount; i++)
 			{
-				cars[i] = carGenerator.Entity;
+				entities[i] = generator.Entity;
 			}
 
-			return cars;
+			return entities;
 		}
 	}
 }
